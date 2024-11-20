@@ -36,8 +36,14 @@ public class PersonController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String>create(@PathVariable Long id) {
+    public ResponseEntity<String>delete(@PathVariable Long id) {
         personService.deletePerson(id);
+        return new ResponseEntity<>("Person deleted successfully", HttpStatus.OK);
+    }
+
+    @PutMapping("{email}")
+    public ResponseEntity<String>update(@PathVariable String email, @RequestBody Person updatedPerson) {
+        personService.updatePerson(email,  updatedPerson);
         return new ResponseEntity<>("Person deleted successfully", HttpStatus.OK);
     }
 }
