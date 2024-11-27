@@ -1,5 +1,6 @@
 package ie.atu.week11example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,14 +9,23 @@ import java.util.Optional;
 public class PersonService {
 
     private PersonRepository personRepository;
+    private PaymentClient paymentClient;
+
+    @Autowired
+    public PersonService(PaymentClient paymentClient) {
+        this.paymentClient = paymentClient;
+    }
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
     // Placeholder method to save a person (add to Db in the next two weeks)
     public void savePerson(Person person) {
-        personRepository.save(person);
-        System.out.println("Person saved: " + person);
+        //personRepository.save(person);
+        String response =paymentClient.makePayment(person);
+        System.out.println("Person saved: " + person + response);
+        //System.out.println(response);
+
     }
 
     // Placeholder method to retrieve a person by employeeId
